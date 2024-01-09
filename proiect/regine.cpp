@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <time.h>
 
 using namespace std;
 
@@ -33,8 +35,37 @@ void afisareTabla(vector<vector<int>>& solutii, int t[8][8])
             contor++;
         }
     }
+    cout<<"Numarul de solutii gasite: "<<contor<<endl;
+}
 
-    cout<<"Numarul de solutii gasite: "<<contor;
+void afisareRandom(vector<vector<int>>& solutii, int t[8][8])
+{
+    srand(time(0));
+    int random= rand() % 92;
+    cout<<random<<endl;
+    int contor=0;
+    if(solutii.empty())
+    {
+        cout<<"nu exista solutii"<<endl;
+    }
+    else{
+        for(auto& s: solutii)
+        {
+            for(int i=0;i<8;i++)
+            {
+                for(int j=0;j<8;j++)
+                {
+                    if(contor==random)
+                    cout<<s[i*8+j];
+                }
+                if(contor==random)
+                cout<<endl;
+            }
+            if(contor==random)
+            cout<<endl;
+            contor++;
+        }
+    }
 }
 
 bool esteValid(int t[8][8], int rand, int col)
@@ -87,12 +118,31 @@ void rezolvare(vector<vector<int>>& solutii, int t[8][8], int col)
 
 int main()
 {
-    int t[8][8], contor=0;
+    int t[8][8], opt;
     vector<vector<int>> solutii;
     creareTabla(t);
-
     rezolvare(solutii, t, 0);
-    afisareTabla(solutii, t);
+
+    do{
+        cout<<"1. Printeaza toate solutiile problemei reginelor";
+        cout<<"2. Printeaza o solutie aleatorie pentru problema reginelor";
+        cout<<"0. Iesire";
+       cout<<"opt: ";
+       cin>>opt;
+       switch(opt)
+       {
+            case 0:
+            break;
+            default:
+            break;
+            case 1:
+            afisareTabla(solutii, t);
+            break;
+            case 2:
+            afisareRandom(solutii, t);
+            break;
+       } 
+    }while(opt!=0);
 
     return 0;
 }
