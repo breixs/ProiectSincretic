@@ -27,7 +27,7 @@ void afisareTabla(vector<vector<int>>& solutii, int t[8][8])
             {
                 for(int j=0;j<8;j++)
                 {
-                    cout<<s[i*8+j];
+                    cout<<s[i*8+j]<<" ";
                 }
                 cout<<endl;
             }
@@ -42,7 +42,7 @@ void afisareRandom(vector<vector<int>>& solutii, int t[8][8])
 {
     srand(time(0));
     int random= rand() % 92;
-    cout<<random<<endl;
+    cout<<"solutia: "<<random<<endl;
     int contor=0;
     if(solutii.empty())
     {
@@ -51,18 +51,18 @@ void afisareRandom(vector<vector<int>>& solutii, int t[8][8])
     else{
         for(auto& s: solutii)
         {
-            for(int i=0;i<8;i++)
+            if(contor==random)
             {
-                for(int j=0;j<8;j++)
+                for(int i=0;i<8;i++)
                 {
-                    if(contor==random)
-                    cout<<s[i*8+j];
+                    for(int j=0;j<8;j++)
+                    {
+                        cout<<s[i*8+j]<<" ";
+                    }
+                cout<<endl;
                 }
-                if(contor==random)
                 cout<<endl;
             }
-            if(contor==random)
-            cout<<endl;
             contor++;
         }
     }
@@ -119,16 +119,34 @@ void rezolvare(vector<vector<int>>& solutii, int t[8][8], int col)
 int main()
 {
     int t[8][8], opt;
+    bool ok=false;
     vector<vector<int>> solutii;
     creareTabla(t);
     rezolvare(solutii, t, 0);
 
     do{
-        cout<<"1. Printeaza toate solutiile problemei reginelor";
-        cout<<"2. Printeaza o solutie aleatorie pentru problema reginelor";
-        cout<<"0. Iesire";
-       cout<<"opt: ";
-       cin>>opt;
+        cout<<" - PROBLEMA REGINELOR - "<<endl;
+        cout<<"1. Afiseaza toate solutiile problemei reginelor"<<endl;
+        cout<<"2. Afiseaza o solutie aleatorie pentru problema reginelor"<<endl;
+        cout<<"0. Iesire"<<endl;
+        do{
+            try{
+                cout<<"Introduceti optiunea: ";
+                cin>>opt;
+                if(opt<0||opt>2||cin.fail())
+                {
+                    ok=false;
+                    cin.clear();
+                    cin.ignore();
+                    throw(100);
+                }
+                else ok=true;
+            }
+            catch(int x)
+            {
+                cout<<"Optiune gresita, incercati alta optiune"<<endl;
+            }
+        }while(ok==false);
        switch(opt)
        {
             case 0:
